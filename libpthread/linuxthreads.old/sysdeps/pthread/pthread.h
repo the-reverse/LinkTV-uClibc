@@ -288,15 +288,11 @@ extern int pthread_attr_getstacksize (__const pthread_attr_t *__restrict
 				      __attr, size_t *__restrict __stacksize)
      __THROW;
 
-#if 0
-/* Not yet implemented in uClibc! */
-
 #ifdef __USE_GNU
 /* Initialize thread attribute *ATTR with attributes corresponding to the
    already running thread TH.  It shall be called on uninitialized ATTR
    and destroyed with pthread_attr_destroy when no longer needed.  */
-extern int pthread_getattr_np (pthread_t __th, pthread_attr_t *__attr) __THROW;
-#endif
+extern void* pthread_getattr_np(pthread_t thread, pthread_attr_t *attr);
 #endif
 
 /* Functions for scheduling control.  */
@@ -598,6 +594,11 @@ extern int pthread_cancel (pthread_t __cancelthread);
    the thread as per pthread_exit(PTHREAD_CANCELED) if it has been
    cancelled.  */
 extern void pthread_testcancel (void);
+
+/* Return the previously set address for the stack.  */
+extern int pthread_attr_getstack (__const pthread_attr_t *__restrict __attr,
+  void **__restrict __stackaddr,
+  size_t *__restrict __stacksize) __THROW;
 
 
 /* Install a cleanup handler: ROUTINE will be called with arguments ARG

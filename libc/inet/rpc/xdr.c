@@ -76,7 +76,7 @@ static const char xdr_zero[BYTES_PER_XDR_UNIT] = {0, 0, 0, 0};
  * Not a filter, but a convenient utility nonetheless
  */
 void
-xdr_free (xdrproc_t proc, char *objp)
+__attribute__((weak)) xdr_free (xdrproc_t proc, char *objp)
 {
   XDR x;
 
@@ -93,7 +93,7 @@ xdr_void (void)
 {
   return TRUE;
 }
-libc_hidden_def(xdr_void)
+libc_hidden_weak(xdr_void)
 
 /*
  * XDR long integers
@@ -118,7 +118,7 @@ xdr_long (XDR *xdrs, long *lp)
 
   return FALSE;
 }
-libc_hidden_def(xdr_long)
+libc_hidden_weak(xdr_long)
 
 /*
  * XDR short integers
@@ -148,7 +148,7 @@ xdr_short (XDR *xdrs, short *sp)
     }
   return FALSE;
 }
-libc_hidden_def(xdr_short)
+libc_hidden_weak(xdr_short)
 
 /*
  * XDR integers
@@ -185,7 +185,7 @@ xdr_int (XDR *xdrs, int *ip)
 #error unexpected integer sizes in xdr_int()
 #endif
 }
-libc_hidden_def(xdr_int)
+libc_hidden_weak(xdr_int)
 
 /*
  * XDR unsigned long integers
@@ -221,7 +221,7 @@ xdr_u_long (XDR *xdrs, u_long *ulp)
     }
   return FALSE;
 }
-libc_hidden_def(xdr_u_long)
+libc_hidden_weak(xdr_u_long)
 
 /*
  * XDR unsigned integers
@@ -257,7 +257,7 @@ xdr_u_int (XDR *xdrs, u_int *up)
 #error unexpected integer sizes in xdr_u_int()
 #endif
 }
-libc_hidden_def(xdr_u_int)
+libc_hidden_weak(xdr_u_int)
 
 /*
  * XDR hyper integers
@@ -291,7 +291,7 @@ xdr_hyper (XDR *xdrs, quad_t *llp)
 
   return FALSE;
 }
-libc_hidden_def(xdr_hyper)
+libc_hidden_weak(xdr_hyper)
 
 
 /*
@@ -326,16 +326,16 @@ xdr_u_hyper (XDR *xdrs, u_quad_t *ullp)
 
   return FALSE;
 }
-libc_hidden_def(xdr_u_hyper)
+libc_hidden_weak(xdr_u_hyper)
 
 bool_t
-xdr_longlong_t (XDR *xdrs, quad_t *llp)
+__attribute__((weak)) xdr_longlong_t (XDR *xdrs, quad_t *llp)
 {
   return xdr_hyper (xdrs, llp);
 }
 
 bool_t
-xdr_u_longlong_t (XDR *xdrs, u_quad_t *ullp)
+__attribute__((weak)) xdr_u_longlong_t (XDR *xdrs, u_quad_t *ullp)
 {
   return xdr_u_hyper (xdrs, ullp);
 }
@@ -368,14 +368,14 @@ xdr_u_short (XDR *xdrs, u_short *usp)
     }
   return FALSE;
 }
-libc_hidden_def(xdr_u_short)
+libc_hidden_weak(xdr_u_short)
 
 
 /*
  * XDR a char
  */
 bool_t
-xdr_char (XDR *xdrs, char *cp)
+__attribute__((weak)) xdr_char (XDR *xdrs, char *cp)
 {
   int i;
 
@@ -392,7 +392,7 @@ xdr_char (XDR *xdrs, char *cp)
  * XDR an unsigned char
  */
 bool_t
-xdr_u_char (XDR *xdrs, u_char *cp)
+__attribute__((weak)) xdr_u_char (XDR *xdrs, u_char *cp)
 {
   u_int u;
 
@@ -433,7 +433,7 @@ xdr_bool (XDR *xdrs, bool_t *bp)
     }
   return FALSE;
 }
-libc_hidden_def(xdr_bool)
+libc_hidden_weak(xdr_bool)
 
 /*
  * XDR enumerations
@@ -485,7 +485,7 @@ xdr_enum (XDR *xdrs, enum_t *ep)
       return FALSE;
     }
 }
-libc_hidden_def(xdr_enum)
+libc_hidden_weak(xdr_enum)
 
 /*
  * XDR opaque data
@@ -537,7 +537,7 @@ xdr_opaque (XDR *xdrs, caddr_t cp, u_int cnt)
     }
   return FALSE;
 }
-libc_hidden_def(xdr_opaque)
+libc_hidden_weak(xdr_opaque)
 
 /*
  * XDR counted bytes
@@ -603,13 +603,13 @@ xdr_bytes (XDR *xdrs, char **cpp, u_int *sizep, u_int maxsize)
     }
   return FALSE;
 }
-libc_hidden_def(xdr_bytes)
+libc_hidden_weak(xdr_bytes)
 
 /*
  * Implemented here due to commonality of the object.
  */
 bool_t
-xdr_netobj (xdrs, np)
+__attribute__((weak)) xdr_netobj (xdrs, np)
      XDR *xdrs;
      struct netobj *np;
 {
@@ -659,7 +659,7 @@ xdr_union (XDR *xdrs, enum_t *dscmp, char *unp, const struct xdr_discrim *choice
   return ((dfault == NULL_xdrproc_t) ? FALSE :
 	  (*dfault) (xdrs, unp, LASTUNSIGNED));
 }
-libc_hidden_def(xdr_union)
+libc_hidden_weak(xdr_union)
 
 /*
  * Non-portable xdr primitives.
@@ -748,14 +748,14 @@ xdr_string (XDR *xdrs, char **cpp, u_int maxsize)
     }
   return FALSE;
 }
-libc_hidden_def(xdr_string)
+libc_hidden_weak(xdr_string)
 
 /*
  * Wrapper for xdr_string that can be called directly from
  * routines like clnt_call
  */
 bool_t
-xdr_wrapstring (xdrs, cpp)
+__attribute__((weak)) xdr_wrapstring (xdrs, cpp)
      XDR *xdrs;
      char **cpp;
 {

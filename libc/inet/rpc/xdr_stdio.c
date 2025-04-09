@@ -89,7 +89,7 @@ static const struct xdr_ops xdrstdio_ops =
  * Operation flag is set to op.
  */
 void
-xdrstdio_create (XDR *xdrs, FILE *file, enum xdr_op op)
+__attribute__((weak)) xdrstdio_create (XDR *xdrs, FILE *file, enum xdr_op op)
 {
   xdrs->x_op = op;
   /* We have to add the const since the `struct xdr_ops' in `struct XDR'
@@ -105,7 +105,7 @@ xdrstdio_create (XDR *xdrs, FILE *file, enum xdr_op op)
  * Cleans up the xdr stream handle xdrs previously set up by xdrstdio_create.
  */
 static void
-xdrstdio_destroy (XDR *xdrs)
+__attribute__((weak)) xdrstdio_destroy (XDR *xdrs)
 {
   (void) fflush ((FILE *) xdrs->x_private);
   /* xx should we close the file ?? */

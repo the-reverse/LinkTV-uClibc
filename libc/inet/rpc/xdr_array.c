@@ -144,7 +144,7 @@ xdr_array (XDR *xdrs, caddr_t *addrp, u_int *sizep, u_int maxsize, u_int elsize,
     }
   return stat;
 }
-libc_hidden_def(xdr_array)
+libc_hidden_weak(xdr_array)
 
 /*
  * xdr_vector():
@@ -157,7 +157,7 @@ libc_hidden_def(xdr_array)
  * > xdr_elem: routine to XDR each element
  */
 bool_t
-xdr_vector (xdrs, basep, nelem, elemsize, xdr_elem)
+__attribute__((weak)) xdr_vector (xdrs, basep, nelem, elemsize, xdr_elem)
      XDR *xdrs;
      char *basep;
      u_int nelem;

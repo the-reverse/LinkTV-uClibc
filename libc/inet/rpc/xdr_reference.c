@@ -111,7 +111,7 @@ xdr_reference (XDR *xdrs, caddr_t *pp, u_int size, xdrproc_t proc)
     }
   return stat;
 }
-libc_hidden_def(xdr_reference)
+libc_hidden_weak(xdr_reference)
 
 /*
  * xdr_pointer():
@@ -133,7 +133,7 @@ libc_hidden_def(xdr_reference)
  *
  */
 bool_t
-xdr_pointer (xdrs, objpp, obj_size, xdr_obj)
+__attribute__((weak)) xdr_pointer (xdrs, objpp, obj_size, xdr_obj)
      XDR *xdrs;
      char **objpp;
      u_int obj_size;

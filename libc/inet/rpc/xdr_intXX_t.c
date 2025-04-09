@@ -22,7 +22,7 @@
 
 /* XDR 64bit integers */
 bool_t
-xdr_int64_t (XDR *xdrs, int64_t *ip)
+__attribute__((weak)) xdr_int64_t (XDR *xdrs, int64_t *ip)
 {
   int32_t t1;
   /* This must be unsigned, otherwise we get problems with sign
@@ -50,7 +50,7 @@ xdr_int64_t (XDR *xdrs, int64_t *ip)
 
 /* XDR 64bit unsigned integers */
 bool_t
-xdr_uint64_t (XDR *xdrs, uint64_t *uip)
+__attribute__((weak)) xdr_uint64_t (XDR *xdrs, uint64_t *uip)
 {
   uint32_t t1;
   uint32_t t2;
@@ -78,7 +78,7 @@ xdr_uint64_t (XDR *xdrs, uint64_t *uip)
 
 /* XDR 32bit integers */
 bool_t
-xdr_int32_t (XDR *xdrs, int32_t *lp)
+__attribute__((weak)) xdr_int32_t (XDR *xdrs, int32_t *lp)
 {
   switch (xdrs->x_op)
     {
@@ -95,7 +95,7 @@ xdr_int32_t (XDR *xdrs, int32_t *lp)
 
 /* XDR 32bit unsigned integers */
 bool_t
-xdr_uint32_t (XDR *xdrs, uint32_t *ulp)
+__attribute__((weak)) xdr_uint32_t (XDR *xdrs, uint32_t *ulp)
 {
   switch (xdrs->x_op)
     {
@@ -112,7 +112,7 @@ xdr_uint32_t (XDR *xdrs, uint32_t *ulp)
 
 /* XDR 16bit integers */
 bool_t
-xdr_int16_t (XDR *xdrs, int16_t *ip)
+__attribute__((weak)) xdr_int16_t (XDR *xdrs, int16_t *ip)
 {
   int32_t t;
 
@@ -135,7 +135,7 @@ xdr_int16_t (XDR *xdrs, int16_t *ip)
 
 /* XDR 16bit unsigned integers */
 bool_t
-xdr_uint16_t (XDR *xdrs, uint16_t *uip)
+__attribute__((weak)) xdr_uint16_t (XDR *xdrs, uint16_t *uip)
 {
   uint32_t ut;
 
@@ -158,7 +158,7 @@ xdr_uint16_t (XDR *xdrs, uint16_t *uip)
 
 /* XDR 8bit integers */
 bool_t
-xdr_int8_t (XDR *xdrs, int8_t *ip)
+__attribute__((weak)) xdr_int8_t (XDR *xdrs, int8_t *ip)
 {
   int32_t t;
 
@@ -181,7 +181,7 @@ xdr_int8_t (XDR *xdrs, int8_t *ip)
 
 /* XDR 8bit unsigned integers */
 bool_t
-xdr_uint8_t (XDR *xdrs, uint8_t *uip)
+__attribute__((weak)) xdr_uint8_t (XDR *xdrs, uint8_t *uip)
 {
   uint32_t ut;
 

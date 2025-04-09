@@ -89,7 +89,7 @@ static struct sgl_limits {
 #endif /* vax */
 
 bool_t
-xdr_float(xdrs, fp)
+__attribute__((weak)) xdr_float(xdrs, fp)
      XDR *xdrs;
      float *fp;
 {
@@ -209,7 +209,7 @@ static struct dbl_limits {
 
 
 bool_t
-xdr_double(xdrs, dp)
+__attribute__((weak)) xdr_double(xdrs, dp)
      XDR *xdrs;
      double *dp;
 {

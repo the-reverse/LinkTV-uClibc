@@ -1012,7 +1012,16 @@ int attribute_hidden __dns_lookup(const char *name, int type,
 				if (a->atype != T_SIG && (NULL == a->buf || (type != T_A && type != T_AAAA)))
 					break;
 				if (a->atype != type) {
+					/* we've seen DNS server reply with only 1
+					 * answer, and the type does not match. in
+					 * that case, a->dotted gets freed here, it
+					 * gets freed again by caller of
+					 * dns_lookup.  So if a->dotted is freed,
+					 * we marked it NULL. The caller will not
+					 * call free again on a->dotted
+					 */
 					free(a->dotted);
+					a->dotted = NULL;
 					continue;
 				}
 				a->add_count = h.ancount - j - 1;
@@ -2214,6 +2223,11 @@ int gethostbyname_r(const char * name,
 			addr_list[a.add_count + 1] = 0;
 			buflen -= (((char*)&(addr_list[a.add_count + 2])) - buf);
 			buf = (char*)&addr_list[a.add_count + 2];
+		}
+		if (a.dotted == NULL) {
+			// we have no answer, return immediate
+			*h_errnop=HOST_NOT_FOUND;
+			return TRY_AGAIN;
 		}
 
 		strncpy(buf, a.dotted, buflen);
